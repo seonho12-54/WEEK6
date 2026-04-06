@@ -86,9 +86,53 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
-}
+    if (ll == NULL || ll->head == NULL)
+        return;
 
+    ListNode *cur = ll->head;
+    ListNode *oddHead = NULL, *oddTail = NULL;
+    ListNode *evenHead = NULL, *evenTail = NULL;
+
+    // 1. 분류
+    while (cur != NULL)
+    {
+        ListNode *next = cur->next;
+
+        if (cur->item % 2 == 0) // even
+        {
+            if (evenHead == NULL)
+                evenHead = evenTail = cur;
+            else
+            {
+                evenTail->next = cur;
+                evenTail = cur;
+            }
+        }
+        else // odd
+        {
+            if (oddHead == NULL)
+                oddHead = oddTail = cur;
+            else
+            {
+                oddTail->next = cur;
+                oddTail = cur;
+            }
+        }
+
+        cur->next = NULL; // 끊기 (중요)
+        cur = next;
+    }
+
+    // 2. 합치기
+    if (evenHead == NULL)
+    {
+        ll->head = oddHead;
+        return;
+    }
+
+    evenTail->next = oddHead;
+    ll->head = evenHead;
+}
 ///////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){

@@ -34,6 +34,8 @@ int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
 
 
+
+
 //////////////////////////// main() //////////////////////////////////////////////
 
 int main()
@@ -86,14 +88,81 @@ int main()
 	return 0;
 }
 
+
+
+
 //////////////////////////////////////////////////////////////////////////////////
 
 int insertSortedLL(LinkedList *ll, int item)
 {
 	/* add your code here */
-}
+	ListNode *cur, *pre;
+	int index = 0;
+	if (ll == NULL)
+		return -1;
+	
+	cur = ll->head;
+	pre = NULL;
+	while (cur != NULL && cur->item < item)
+	{
+		pre = cur;
+		cur = cur->next;
+		index++;
+	}
 
+	ListNode *newNode = malloc(sizeof(ListNode));
+
+	if (newNode == NULL)
+		return -1;
+
+
+	newNode->item = item;
+
+	if (pre == NULL)
+	{
+		newNode->next = ll->head;
+		ll->head = newNode;
+	}
+
+	else
+	{
+		pre->next = newNode;
+		newNode->next = cur;
+	}
+	ll->size++;
+	return index;
+}
+/*
+1. 준비운동 (if NULL)
+
+리스트 자체가 없으면 튕겨냅니다(에러 -1). 문제없으면 맨 앞(Head)부터 탐색 시작!
+
+2. 내 자리 찾기 (while문)
+
+나보다 **'큰 숫자'**가 나올 때까지 냅다 옆으로 계속 이동합니다.
+
+한 칸 건너뛸 때마다 내 자리 번호(index)도 1씩 올려줍니다.
+
+3. 새 상자 만들기 (malloc)
+
+내 숫자를 담을 튼튼한 빈 상자를 하나 가져옵니다.
+
+4. 선 연결하기 (끼워넣기)
+
+맨 앞일 때 (pre == NULL): "비켜, 내가 1빠야!" 원래 1등을 내 뒤로 밀어내고 내가 대장(Head)이 됩니다.
+
+중간/끝일 때 (else): 앞사람과 뒷사람이 잡고 있던 손을 풀고, 그 사이에 내가 들어가서 양쪽 손을 꽉 잡습니다.
+
+5. 마무리 (size++, return)
+
+관리자 장부에 "상자 1개 추가요!" 적어주고, 최종적으로 내가 들어간 번호(index)를 외치면서 쿨하게 퇴장합니다. 끝!
+
+*/
 ///////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 void printList(LinkedList *ll){
 
@@ -113,6 +182,11 @@ void printList(LinkedList *ll){
 }
 
 
+
+
+
+
+
 void removeAllItems(LinkedList *ll)
 {
 	ListNode *cur = ll->head;
@@ -126,6 +200,12 @@ void removeAllItems(LinkedList *ll)
 	ll->head = NULL;
 	ll->size = 0;
 }
+
+
+
+
+
+
 
 
 ListNode *findNode(LinkedList *ll, int index){
@@ -149,6 +229,12 @@ ListNode *findNode(LinkedList *ll, int index){
 
 	return temp;
 }
+
+
+
+
+
+
 
 int insertNode(LinkedList *ll, int index, int value){
 
@@ -181,6 +267,9 @@ int insertNode(LinkedList *ll, int index, int value){
 
 	return -1;
 }
+
+
+
 
 
 int removeNode(LinkedList *ll, int index){

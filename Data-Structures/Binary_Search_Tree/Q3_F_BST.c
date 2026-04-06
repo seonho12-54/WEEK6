@@ -92,6 +92,28 @@ int main()
 void preOrderIterative(BSTNode *root)
 {
 	 /* add your code here */
+	 	if (root == NULL) {
+		return;
+	}
+	Stack stack;
+	stack.top = NULL;
+
+	push(&stack, root);
+
+	while (!isEmpty(&stack)) {
+		BSTNode *current = pop(&stack);
+		printf("%d ", current->item);
+		// 오른쪽 자식이 존재하면 스택에 먼저 추가 (나중에 처리됨)
+		if (current->right != NULL) {
+			push(&stack, current->right);
+		}
+		// 왼쪽 자식이 존재하면 스택에 추가 (먼저 처리됨)
+		if (current->left != NULL) {
+			push(&stack, current->left);
+		}
+
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////

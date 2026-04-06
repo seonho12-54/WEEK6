@@ -36,7 +36,11 @@ int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
 
 
+
+
 //////////////////////////// main() //////////////////////////////////////////////
+
+
 
 int main()
 {
@@ -101,12 +105,40 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+
+
+
+
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+
+	ListNode *p1 = ll1->head;
+	ListNode *p2 = ll2->head;
+
+	while (p1 != NULL && p2 != NULL) {
+		ListNode *next1 = p1->next;
+		ListNode *next2 = p2->next;
+
+		p1->next = p2;
+		p2->next = next1;
+
+		p1 = next1;
+		p2 = next2;
+	}
+
+	ll2->head = p2; // 남은거 처리
+
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 void printList(LinkedList *ll){
 
@@ -126,6 +158,9 @@ void printList(LinkedList *ll){
 }
 
 
+
+
+
 void removeAllItems(LinkedList *ll)
 {
 	ListNode *cur = ll->head;
@@ -139,6 +174,9 @@ void removeAllItems(LinkedList *ll)
 	ll->head = NULL;
 	ll->size = 0;
 }
+
+
+
 
 
 ListNode *findNode(LinkedList *ll, int index){
@@ -162,6 +200,10 @@ ListNode *findNode(LinkedList *ll, int index){
 
 	return temp;
 }
+
+
+
+
 
 int insertNode(LinkedList *ll, int index, int value){
 
@@ -194,6 +236,10 @@ int insertNode(LinkedList *ll, int index, int value){
 
 	return -1;
 }
+
+
+
+
 
 
 int removeNode(LinkedList *ll, int index){
